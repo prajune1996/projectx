@@ -16,7 +16,7 @@ function loadCat(){
     const getListOfNames = (category) => {
         const names = category
           .map((category) => 
-          `<input onclick="filterSelection('opt${category.id}')" class='form-check-input cl' type='radio' name='exampleRadios' id='exampleRadios${category.id}' value='${category.id}'>
+          `<input onclick='sortCat()' name="gender" class='form-check-input' type='radio' name='exampleRadios' id='exampleRadios${category.id}' value='${category.id}'>
           <label class='form-check-label' for='exampleRadios${category.id}'>${category.title}</label>
           <br>`)
           .join("\n");
@@ -25,16 +25,19 @@ function loadCat(){
 }
 // Fetching Boxes
 function loadBox(){
+    console.log(globalVariable)
     const URL = "http://localhost:8000/api/course";
     const cou = document.getElementById("cou");
     cou.innerHTML = "<p>Loading...";
     fetch(URL)
     .then((response) => response.json())
     .then((course) => cou.innerHTML = getListOfCourses(course))
+    
     const getListOfCourses = (course) => {
         const cer = course
-            .map((course) => 
-            `<div class="col-md-4 col-sm-6 filter opt${course.category_id} show" >
+            .map((course) => {
+                if(globalVariable === 0){
+            `<div class="col-md-4 col-sm-6">
             <div class="card mt-3" >
             <div class="card-body">
                 <div class="row">
@@ -68,40 +71,13 @@ function loadBox(){
             </div>
           </div>
         </div>`
-            )
-        .join("\n");
+    }
+    else{
+        
+    }
+    }).join("\n");
         return `${cer}`;
         
     }
-}
-// Filter Function
-filterSelection("all")
-function filterSelection(c) {
-  var x, i;
-  x = document.getElementsByClassName("filter");
-  if (c == "all") c = "";
-  for (i = 0; i < x.length; i++) {
-    RemoveClass(x[i], "show");
-    if (x[i].className.indexOf(c) > -1) AddClass(x[i], "show");
-  }
-}
-function AddClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-  }
-}
-function RemoveClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);     
-    }
-  }
-  element.className = arr1.join(" ");
 }
 

@@ -5,7 +5,10 @@ body{
     font-size: 14px;
     color: #bcbcbc;
 }
+.filter {
+    display: none;
+  }
 
-.customcard{
-    width: 18rem;
-}
+.show {
+    display: block;
+  }

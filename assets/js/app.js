@@ -35,7 +35,7 @@ function loadBox(){
         const cer = course
             .map((course) => 
             `<div class="col-md-4 col-sm-6 filter opt${course.category_id} show" >
-            <div class="card mt-3" >
+            <div class="card mt-3 inner" >
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2">
@@ -59,7 +59,7 @@ function loadBox(){
                     <div class="col-md-1">
                         <i class="fa fa-calendar" aria-hidden="true"></i></div>
                     <div class="col-md-10">
-                       <h6 class="mb-0">Pre-registration</h6>
+                       <h6 class="mb-0">Pre-Registration</h6>
                        <p class="mb-0">${course.start_date} - ${course.end_date}</p>
                        <p class="reg-text"><i>${course.estimated_workload}</i></p>
                     </div>
@@ -104,4 +104,20 @@ function RemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
-
+// Search filter
+function search() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("cat");
+    li = document.getElementsByClassName("filter");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByClassName("inner")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
